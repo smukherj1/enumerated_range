@@ -21,7 +21,8 @@ namespace
 BOOST_AUTO_TEST_CASE(check_empty_sequence)
 {
     int iters = 0;
-    for(auto item : std::vector<int>())
+    auto empty_vec = std::vector<int>();
+    for(auto item : ENUMERATED_RANGE::make_range(empty_vec))
     {
         (void)item;
         ++iters;
