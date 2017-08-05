@@ -40,6 +40,16 @@ BOOST_AUTO_TEST_CASE(check_iteration_vector)
     }
 }
 
+BOOST_AUTO_TEST_CASE(check_iteration_vector_start_with_1)
+{
+    for(auto item : ENUMERATED_RANGE::make_range(ivec, 1))
+    {
+        // The index is equal to the value so we can just
+        // check for that
+        BOOST_TEST(static_cast<int>(item.first - 1) == item.second);
+    }
+}
+
 BOOST_AUTO_TEST_CASE(check_iteration_array)
 {
     for(auto item : ENUMERATED_RANGE::make_range(iarr))
