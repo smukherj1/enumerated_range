@@ -30,7 +30,7 @@ BOOST_AUTO_TEST_CASE(check_empty_sequence)
     BOOST_TEST(iters == 0);
 }
 
-BOOST_AUTO_TEST_CASE(check_iteration_value)
+BOOST_AUTO_TEST_CASE(check_iteration_vector)
 {
     for(auto item : ENUMERATED_RANGE::make_range(ivec))
     {
@@ -38,16 +38,63 @@ BOOST_AUTO_TEST_CASE(check_iteration_value)
         // check for that
         BOOST_TEST(static_cast<int>(item.first) == item.second);
     }
+}
+
+BOOST_AUTO_TEST_CASE(check_iteration_array)
+{
     for(auto item : ENUMERATED_RANGE::make_range(iarr))
     {
         // The index is equal to the value so we can just
         // check for that
         BOOST_TEST(static_cast<int>(item.first) == item.second);
     }
+}
+
+BOOST_AUTO_TEST_CASE(check_iteration_carray)
+{
     for(auto item : ENUMERATED_RANGE::make_range(icarr))
     {
         // The index is equal to the value so we can just
         // check for that
         BOOST_TEST(static_cast<int>(item.first) == item.second);
+    }
+}
+
+BOOST_AUTO_TEST_CASE(check_mutation_vector)
+{
+    auto ivec_copy = ivec;
+    for(auto item : ENUMERATED_RANGE::make_range(ivec_copy))
+    {
+        item.second++;
+    }
+    for(auto item : ENUMERATED_RANGE::make_range(ivec_copy))
+    {
+        BOOST_TEST(item.second == (ivec[item.first] + 1));
+    }
+}
+
+BOOST_AUTO_TEST_CASE(check_mutation_array)
+{
+    auto iarr_copy = iarr;
+    for(auto item : ENUMERATED_RANGE::make_range(iarr_copy))
+    {
+        item.second++;
+    }
+    for(auto item : ENUMERATED_RANGE::make_range(iarr_copy))
+    {
+        BOOST_TEST(item.second == (iarr[item.first] + 1));
+    }
+}
+
+BOOST_AUTO_TEST_CASE(check_mutation_carray)
+{
+    int icarr_copy[] = {0, 1, 2, 3, 4};
+    for(auto item : ENUMERATED_RANGE::make_range(icarr_copy))
+    {
+        item.second++;
+    }
+    for(auto item : ENUMERATED_RANGE::make_range(icarr_copy))
+    {
+        BOOST_TEST(item.second == static_cast<int>(item.first + 1));
     }
 }
